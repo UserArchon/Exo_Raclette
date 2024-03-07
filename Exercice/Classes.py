@@ -1,5 +1,4 @@
 from random import randint
-from Fonctions import devenir_hostile
 
 
 class De:
@@ -51,8 +50,8 @@ class Personnage:
         degats de force dans pv cible"""
         touche = False
         self.dexterite = self.de_perso.lancer_de()
-        devenir_hostile(self, cible)
-        devenir_hostile(cible, self)
+        self.devenir_hostile(cible)
+        cible.devenir_hostile(self)
 
         if self.dexterite + 5 > cible.classe_d_armure:
             cible.prendre_degats(self.force)
@@ -67,6 +66,14 @@ class Personnage:
         if self.pv <= 0:
             self.en_vie = False
 
+    def devenir_hostile(self, cible2):
+        """
+        cible 2 devient hostile pour cible 1
+        :param cible1: de lui
+        :param cible2: futur rival
+        """
+        if not cible2 in self.rival:
+            self.rival.append(cible2)
 
 class Sort:
     def __init__(self, nom):

@@ -1,8 +1,8 @@
 from random import choice
 import Fonctions
 
-objet = Fonctions.ajouter_sort(["Soin"])
-print(objet.nom)
+list_objet = Fonctions.ajouter_sort(["Soin"])
+print(list_objet[0].nom)
 ###########################################################################
 
 # BUG ou MALFACON
@@ -26,7 +26,7 @@ def tour_joueurs(celui_qui_joue, celui_qui_attend):
                     if choice(["devient hostile", "reste calme", "reste calme",
                                "reste calme"]) == "devient hostile":  # 1/4
                         print(f"{celui_qui_joue.nom} vous attaque ! ")
-                        Fonctions.devenir_hostile(celui_qui_joue, celui_qui_attend)  # tentative d'hostilité
+                        celui_qui_joue.devenir_hostile(celui_qui_attend)  # tentative d'hostilité
                         choix_user = "1"
                     else:
                         print(f"{celui_qui_joue.nom} {choice(Fonctions.liste_comportement)}")  # sinon ronge son frein
@@ -163,8 +163,8 @@ jeu = False
 print()
 
 # perso = Classes.Personnage(input("Bonjour, comment tu t'appelles ?\n"), donner_stat_aleatoire())
-perso = Personnage("Didier", Fonctions.donner_stat_aleatoire())
-ennemi = Personnage("Robert", Fonctions.donner_stat_aleatoire())
+perso = Fonctions.Classes.Personnage("Didier", Fonctions.donner_stat_aleatoire())
+ennemi = Fonctions.Classes.Personnage("Robert", Fonctions.donner_stat_aleatoire())
 liste_mob = [perso, ennemi]
 
 liste_nom_categorie_sort = ["Protection", "Heal", "Damage"]

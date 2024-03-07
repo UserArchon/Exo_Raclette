@@ -65,15 +65,6 @@ def donner_stat_aleatoire():
     return stats
 
 
-def devenir_hostile(cible1, cible2):
-    """
-    cible 2 devient hostile pour cible 1
-    :param cible1: de lui
-    :param cible2: futur rival
-    """
-    if not cible2 in cible1.rival:
-        cible1.rival.append(cible2)
-
 
 def victoire(perso, ennemi, boucle_de_jeu):
     if not ennemi.en_vie:
