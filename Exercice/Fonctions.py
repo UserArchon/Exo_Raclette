@@ -1,6 +1,7 @@
 from random import randint, choice
 from pathlib import Path
-from Classes import dico_sort
+
+import Classes
 
 CHOIX_MENU = ["1", "2", "3"]
 CHOIX_MENU_DETAILS = ["Attaquer", "Lancer un sort", "Boire un café"]
@@ -11,6 +12,9 @@ with open(chemin_comportement, 'r') as cc:
     liste_comportement = cc.read().split('\n')
 ##############################################################
 
+dico_sort = {"Protection": [Classes.Sort_shield("Shield")],
+             "Heal": [Classes.Sort_heal("Soin")],
+             "Damage": [Classes.Sort_damage("Mains Brulantes")]}
 
 def ajouter_sort(liste_nom_sort: list) -> list:  # liste en string
     """

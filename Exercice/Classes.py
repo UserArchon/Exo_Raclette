@@ -59,13 +59,14 @@ class Personnage:
             touche = True
         if self.pv > 0:
             print(
-                f"{self.nom} ({self.pv} pv) attaque {cible.nom} de {self.force} pts : {"Touche" if touche else "Loupe"}"
+                f"{self.nom} ({self.pv} pv) attaque {cible.nom} de {self.force} pts : {'Touche' if touche else 'Loupe'}"
             )
 
     def prendre_degats(self, degats):
         self.pv -= degats
         if self.pv <= 0:
             self.en_vie = False
+
 
 class Sort:
     def __init__(self, nom):
@@ -133,11 +134,10 @@ class Sort_heal(Sort):
         lanceur.pv += lanceur.de_perso.lancer_de() + lanceur.intelligence
         self.reset_sort()
 
-dico_sort = {"Protection": [Sort_shield("Shield")],
-             "Heal": [Sort_heal("Soin")],
-             "Damage": [Sort_damage("Mains Brulantes")]}
 
+# dico_sort = {"Protection": [Sort_shield("Shield")],
+#              "Heal": [Sort_heal("Soin")],
+#              "Damage": [Sort_damage("Mains Brulantes")]}
 
 dict_categorie_sort = {"Heal": Sort_heal("Soin"), "Damage": Sort_damage("Mains Brûlantes"),
                        "Protection": Sort_shield("Shield")}
-

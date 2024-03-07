@@ -1,5 +1,5 @@
 from random import choice
-import Classes, Fonctions
+import Fonctions
 
 objet = Fonctions.ajouter_sort(["Soin"])
 print(objet.nom)
@@ -163,8 +163,8 @@ jeu = False
 print()
 
 # perso = Classes.Personnage(input("Bonjour, comment tu t'appelles ?\n"), donner_stat_aleatoire())
-perso = Classes.Personnage("Didier", Fonctions.donner_stat_aleatoire())
-ennemi = Classes.Personnage("Robert", Fonctions.donner_stat_aleatoire())
+perso = Personnage("Didier", Fonctions.donner_stat_aleatoire())
+ennemi = Personnage("Robert", Fonctions.donner_stat_aleatoire())
 liste_mob = [perso, ennemi]
 
 liste_nom_categorie_sort = ["Protection", "Heal", "Damage"]
