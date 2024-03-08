@@ -1,15 +1,6 @@
 from random import choice
 import Fonctions
 
-list_objet = Fonctions.ajouter_sort(["Soin"])
-print(list_objet[0].nom)
-###########################################################################
-
-# BUG ou MALFACON
-
-##########################################################################
-
-liste_des_sorts_a_donner = ["Soin"]
 
 
 def tour_joueurs(celui_qui_joue, celui_qui_attend):
@@ -168,6 +159,26 @@ ennemi = Fonctions.Classes.Personnage("Robert", Fonctions.donner_stat_aleatoire(
 liste_mob = [perso, ennemi]
 
 liste_nom_categorie_sort = ["Protection", "Heal", "Damage"]
+
+# print("ajout 1")
+# perso.ajouter_sort_perso(["Soin", "Mains Brulantes"])
+# # for element in perso.sorts_connus.values():
+# #     print(element.nom)
+# print("ajout 2")
+# perso.ajouter_sort_perso(["Shield"])  # TODO bien decochez ici pour reprendre !!
+# # for element in perso.sorts_connus.values():
+# #     print(element.nom)
+# print("ajout 3")
+# perso.ajouter_sort_perso(["Mains Brulantes"])
+# for element in perso.sorts_connus.values():
+#     print(element.nom)
+#
+
+
+
+liste_des_sorts_a_donner = ["Soin"]
+
+
 
 # pprint(perso.sorts_connus)
 # gibier = 1

@@ -1,6 +1,8 @@
 from random import randint
 
 
+
+
 class De:
     def __init__(self, nb_faces):
         self.nb_faces = nb_faces
@@ -25,6 +27,40 @@ class Personnage:
         self.rival = []
         self.sorts_connus = {}
         self.etat_du_perso = {}
+
+    def ajouter_sort_perso(self, liste_nom_sort: list) -> dict:  # liste en string
+        """
+        :param liste_nom_sort: du personnage
+        :return: dict objets sorts concernés
+        """
+        for sort_du_perso in liste_nom_sort:  # Pour chaque sort du perso
+            for nom_attributs, sorts_du_dico in dico_sort.items():  # Pour chaque cle, valeur dans le dico
+                for sortilege in sorts_du_dico:  # Pour chaque sort de chaque attribut
+                    if sort_du_perso == sortilege.nom:  # si le nom du sort du perso == nom du sort du dico
+                        # TODO remplir cette methode correctement. Proceder par etape. dabord trier les sorts recuperer
+                        # TODO les comparer et les rangez dans sorts connus
+                        pass
+                        # if self.sorts_connus != {}:
+                        #     for cle, chaque_sort in self.sorts_connus.items():
+                        #         print(f"{cle} : {chaque_sort}")
+                        #         if chaque_sort.nom == sort_du_perso:
+                        #             print("Sort deja appris")
+                        #         else:
+                        #             self.sorts_connus.update({f"Sort {len(self.sorts_connus) + 1}": sortilege})
+                        # else:
+                        #     self.sorts_connus.update({f"Sort {len(self.sorts_connus) + 1}": sortilege})
+                        #
+
+                            # for sort_deja_en_place in self.sorts_connus.values():
+                            #     print(sort_deja_en_place.nom)
+                            #     if sort_deja_en_place.nom == sort_du_perso:
+                            #         print("joko")
+
+                            # if not nom_des_sorts_connus.nom == sort_du_perso : #  si le sort n'est pas dejà appris
+                            #     print("ok3")
+                            #
+
+
 
     # def upgrade(self):
     #     if self.xp >= 200:  # TODO remettre les niveaux en place
@@ -148,3 +184,7 @@ class Sort_heal(Sort):
 
 dict_categorie_sort = {"Heal": Sort_heal("Soin"), "Damage": Sort_damage("Mains Brûlantes"),
                        "Protection": Sort_shield("Shield")}
+
+dico_sort = {"Protection": [Sort_shield("Shield")],
+             "Heal": [Sort_heal("Soin")],
+             "Damage": [Sort_damage("Mains Brulantes")]}

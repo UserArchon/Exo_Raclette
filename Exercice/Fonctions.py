@@ -12,22 +12,21 @@ with open(chemin_comportement, 'r') as cc:
     liste_comportement = cc.read().split('\n')
 ##############################################################
 
-dico_sort = {"Protection": [Classes.Sort_shield("Shield")],
-             "Heal": [Classes.Sort_heal("Soin")],
-             "Damage": [Classes.Sort_damage("Mains Brulantes")]}
 
-def ajouter_sort(liste_nom_sort: list) -> list:  # liste en string
-    """
-    :param liste_nom_sort: du personnage
-    :return: liste objets sorts concernés
-    """
-    liste_objets_sorts = []
-    for sort_du_perso in liste_nom_sort:  # Pour chaque sort du perso
-        for nom_attributs, sorts_du_dico in dico_sort.items():  # Pour chaque cle, valeur dans le dico
-            for sortilege in sorts_du_dico:  # Pour chaque sort de chaque attribut
-                if sort_du_perso == sortilege.nom:  # si le nom du sort du perso == nom du sort du dico
-                    liste_objets_sorts.append(sortilege)
-    return liste_objets_sorts
+
+# def ajouter_sort(liste_nom_sort: list) -> dict:  # liste en string
+#     """
+#     :param liste_nom_sort: du personnage
+#     :return: dict objets sorts concernés
+#     """
+#     dict_perso_sorts = {}
+#     for sort_du_perso in liste_nom_sort:  # Pour chaque sort du perso
+#         for nom_attributs, sorts_du_dico in dico_sort.items():  # Pour chaque cle, valeur dans le dico
+#             for sortilege in sorts_du_dico:  # Pour chaque sort de chaque attribut
+#                 if sort_du_perso == sortilege.nom:  # si le nom du sort du perso == nom du sort du dico
+#                     dict_perso_sorts.update({f"Sort {len(dict_perso_sorts)+1}": sortilege})
+#     return dict_perso_sorts
+
 
 def retourne_dict_choix_sort(joueur):
     dictio_sort = {}
@@ -65,7 +64,6 @@ def donner_stat_aleatoire():
     return stats
 
 
-
 def victoire(perso, ennemi, boucle_de_jeu):
     if not ennemi.en_vie:
         print(f"{ennemi.nom} est mort et {perso.nom} gagne le combat ! ")
@@ -85,4 +83,3 @@ def defile_menu():
     for element in CHOIX_MENU:
         print(f"{element}. {CHOIX_MENU_DETAILS[i]}\n")
         i += 1
-
