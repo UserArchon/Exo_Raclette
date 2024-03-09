@@ -1,8 +1,6 @@
 from random import randint
 
 
-
-
 class De:
     def __init__(self, nb_faces):
         self.nb_faces = nb_faces
@@ -10,6 +8,16 @@ class De:
     def lancer_de(self) -> int:
         de = randint(1, self.nb_faces)
         return de
+
+
+dico_des_niveaux = {"1": {"sorts": ["Soin"], "pv": 10, "force": 10, "prochain_niveau": 100},
+                    "2": {"sorts": ["Mains Brulantes"], "pv": 20, "dexterite": 5, "prochain_niveau": 300},
+                    "3": {"sorts": ["Shield"], "pv": 20, "dexterite": 5, "prochain_niveau": 600},
+                    "4": {"sorts": ["Feu"], "pv": 20, "force": 20, "prochain_niveau": 900},
+                    "5": {"sorts": ["Glace"], "pv": 20, "dexterite": 15, "prochain_niveau": 1200},
+                    "6": {"sorts": ["Toucher"], "pv": 20, "force": 40, "prochain_niveau": 2400},
+                    "7": {"sorts": ["Barriere"], "pv": 20, "dexterite": 25, "prochain_niveau": 3600},
+                    "8": {"sorts": ["Appel de la lumière"], "pv": 20, "force": 50, "prochain_niveau": 7000}}
 
 
 class Personnage:
@@ -21,65 +29,65 @@ class Personnage:
         self.classe_d_armure = stats["CA"]
         self.pv = 100
         self.xp = 100
-        self.niveau = 1
+        self.niveau = 3
         self.de_perso = De(20)
         self.en_vie = True
         self.rival = []
         self.sorts_connus = {}
         self.etat_du_perso = {}
+        self.prochain_niveau = 0  # xp
+        self.niveau_passe = []
 
-    def ajouter_sort_perso(self, liste_nom_sort: list) -> dict:  # liste en string
+    def ajouter_sort_perso(self, liste_nom_sort: list):  # liste en string
         """
-        :param liste_nom_sort: du personnage
-        :return: dict objets sorts concernés
+        :param liste_nom_sort: list of str ["Soin","Invocation"] de sorts
         """
-        for sort_du_perso in liste_nom_sort:  # Pour chaque sort du perso
-            for nom_attributs, sorts_du_dico in dico_sort.items():  # Pour chaque cle, valeur dans le dico
+        liste_a_injecter = []
+        for sort_du_perso in liste_nom_sort:  # Pour chaque sort donné au perso ########################## nom_attributs : (list)sort_du_dico
+            for nom_attributs, sorts_du_dico in dico_sort.items():  # Pour chaque cle, valeur dans le dico {"Protection":[Sort_shield(nom)]}
                 for sortilege in sorts_du_dico:  # Pour chaque sort de chaque attribut
                     if sort_du_perso == sortilege.nom:  # si le nom du sort du perso == nom du sort du dico
-                        # TODO remplir cette methode correctement. Proceder par etape. dabord trier les sorts recuperer
-                        # TODO les comparer et les rangez dans sorts connus
-                        pass
-                        # if self.sorts_connus != {}:
-                        #     for cle, chaque_sort in self.sorts_connus.items():
-                        #         print(f"{cle} : {chaque_sort}")
-                        #         if chaque_sort.nom == sort_du_perso:
-                        #             print("Sort deja appris")
-                        #         else:
-                        #             self.sorts_connus.update({f"Sort {len(self.sorts_connus) + 1}": sortilege})
-                        # else:
-                        #     self.sorts_connus.update({f"Sort {len(self.sorts_connus) + 1}": sortilege})
-                        #
+                        liste_a_injecter.append(
+                            sortilege)  # Creer une liste temporaire a trier pour eviter les doublons
+        for sorts in self.sorts_connus.values():  # ajouter a cette liste les sorts existants
+            liste_a_injecter.append(sorts)
+        for objets in liste_a_injecter:
+            while not liste_a_injecter.count(objets) == 1:  # tant qu'il y a des doublons, les supprimer
+                liste_a_injecter.remove(objets)
+        self.sorts_connus = {}  # reinitialiser le dict sort
+        for element in liste_a_injecter:
+            self.sorts_connus.update(
+                {f"Sort {len(self.sorts_connus) + 1}": element})  # lui ajouter chaque objet de sort
 
-                            # for sort_deja_en_place in self.sorts_connus.values():
-                            #     print(sort_deja_en_place.nom)
-                            #     if sort_deja_en_place.nom == sort_du_perso:
-                            #         print("joko")
+    def upgrade(self):
+        if self.xp >= self.prochain_niveau:
+            if not self.niveau in self.niveau_passe:
+                nivo = self.niveau
+                for niv in range(1, nivo):
+                    self.niveau = niv
+                    self.passer_un_niveau()
+            self.niveau += 1
+            self.passer_un_niveau()
+            self.xp = 0
+            if not self.niveau == 1:
+                print(self.nom, "passe au niveau ", self.niveau)
 
-                            # if not nom_des_sorts_connus.nom == sort_du_perso : #  si le sort n'est pas dejà appris
-                            #     print("ok3")
-                            #
+    def passer_un_niveau(self):
+        for element in dico_des_niveaux[str(self.niveau)]:
+            if element == "sorts":
+                list_sortilege = []
+                for sortilege in dico_des_niveaux[str(self.niveau)]["sorts"]:
+                    list_sortilege.append(sortilege)
+                self.ajouter_sort_perso(list_sortilege)
+            if element == "pv":  # TODO a refactoriser en mieux
+                self.pv += dico_des_niveaux[str(self.niveau)][element]
+            if element == "force":
+                self.force += dico_des_niveaux[str(self.niveau)][element]
+            if element == "dexterite":
+                self.dexterite += dico_des_niveaux[str(self.niveau)][element]
 
-
-
-    # def upgrade(self):
-    #     if self.xp >= 200:  # TODO remettre les niveaux en place
-    #         self.niveau += 1
-    #         self.passer_un_niveau()
-    #         self.xp = 0
-    #         print(self.nom, "passe au niveau ", self.niveau)
-    #
-    # def passer_un_niveau(self):
-    #     if self.niveau == 2:
-    #         self.sorts_connus.update(Sort_damage("Mains Brulantes"))
-    #         print("\nVous Obtenez le sort Mains Brulantes et 20 de force en plus\n")
-    #         self.force += 20
-    #     if self.niveau == 3:
-    #         self.sorts_connus.append(Sort_shield("Shield"))
-    #         print("\nVous Obtenez le sort Protection et 30 de force en plus\n")
-    #         self.force += 30
-    #     if self.niveau == 4:
-    #         self.force += 40
+        self.prochain_niveau = dico_des_niveaux[str(self.niveau)]["prochain_niveau"]
+        self.niveau_passe.append(self.niveau)
 
     def attaquer(self, cible):
         """Si dexterite de l'attaquant superieur a la classe d'armure de l'attaqué :
@@ -104,12 +112,11 @@ class Personnage:
 
     def devenir_hostile(self, cible2):
         """
-        cible 2 devient hostile pour cible 1
-        :param cible1: de lui
-        :param cible2: futur rival
+        :param cible2: deviens rival
         """
         if not cible2 in self.rival:
             self.rival.append(cible2)
+
 
 class Sort:
     def __init__(self, nom):
@@ -185,6 +192,6 @@ class Sort_heal(Sort):
 dict_categorie_sort = {"Heal": Sort_heal("Soin"), "Damage": Sort_damage("Mains Brûlantes"),
                        "Protection": Sort_shield("Shield")}
 
-dico_sort = {"Protection": [Sort_shield("Shield")],
-             "Heal": [Sort_heal("Soin")],
-             "Damage": [Sort_damage("Mains Brulantes")]}
+dico_sort = {"Protection": [Sort_shield("Shield"), Sort_shield("Barriere"), Sort_shield("Racines"), Sort_shield("Peau de pierre")],
+             "Heal": [Sort_heal("Soin"),Sort_heal("Toucher"),Sort_heal("Mains bénis"),Sort_heal("Appel de la lumière"),Sort_heal("Soleil")],
+             "Damage": [Sort_damage("Mains Brulantes"),Sort_damage("Epee"),Sort_damage("Feu"),Sort_damage("Glace")]}

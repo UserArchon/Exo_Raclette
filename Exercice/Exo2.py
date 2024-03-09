@@ -158,27 +158,33 @@ perso = Fonctions.Classes.Personnage("Didier", Fonctions.donner_stat_aleatoire()
 ennemi = Fonctions.Classes.Personnage("Robert", Fonctions.donner_stat_aleatoire())
 liste_mob = [perso, ennemi]
 
-liste_nom_categorie_sort = ["Protection", "Heal", "Damage"]
+# liste_nom_categorie_sort = ["Protection", "Heal", "Damage"]
 
 # print("ajout 1")
 # perso.ajouter_sort_perso(["Soin", "Mains Brulantes"])
-# # for element in perso.sorts_connus.values():
-# #     print(element.nom)
-# print("ajout 2")
-# perso.ajouter_sort_perso(["Shield"])  # TODO bien decochez ici pour reprendre !!
-# # for element in perso.sorts_connus.values():
-# #     print(element.nom)
-# print("ajout 3")
-# perso.ajouter_sort_perso(["Mains Brulantes"])
-# for element in perso.sorts_connus.values():
-#     print(element.nom)
-#
+print(f"force = {perso.force}")
+print(f"dexterite = {perso.dexterite}")
+print(f"pv = {perso.pv}")
 
+perso.upgrade()
+print(f"prochain = {perso.prochain_niveau}")
 
+for element in perso.sorts_connus.values():
+    print(element.nom)
+print(f"force 2 = {perso.force}")
+print(f"dexterite 2 = {perso.dexterite}")
+print(f"pv 2 = {perso.pv}")
+print(perso.niveau_passe)
 
-liste_des_sorts_a_donner = ["Soin"]
-
-
+perso.xp += 1300
+perso.upgrade()
+print()
+for element in perso.sorts_connus.values():
+    print(element.nom)
+print(f"force 2 = {perso.force}")
+print(f"dexterite 2 = {perso.dexterite}")
+print(f"pv 2 = {perso.pv}")
+print(perso.niveau_passe)
 
 # pprint(perso.sorts_connus)
 # gibier = 1
