@@ -63,6 +63,7 @@ def victoire(perso, ennemi, boucle_de_jeu):
         print(f"C'est {ennemi.nom} ! Votre ennemi juré !\n{ennemi.nom} {choice(liste_comportement)}\n")
     if not perso.en_vie:
         print(f"{perso.nom} est mort et {ennemi.nom} gagne le combat !")
+        print("Dommage ! ")
         ennemi.xp += perso.xp
         print(f"{ennemi.nom} : {ennemi.xp} xp")
         ennemi.upgrade()

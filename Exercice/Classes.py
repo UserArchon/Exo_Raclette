@@ -170,6 +170,7 @@ class Sac_a_dos:
         ############################################################################# 1000 ## 100 # 50 ##### 10 #### 1
         self.armure = []
         self.armes = []
+        self.babioles = []
 
 class Sort:
     def __init__(self, nom):
